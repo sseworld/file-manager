@@ -1,10 +1,17 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import { HomePage } from './pages/HomePage/HomePage'
+
+import { Login, Register, HomePage, DashboardPage } from "./pages"
 
 function App() {
   return (
     <div className="app">
-      <HomePage />
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/dashboard' element={<DashboardPage />} />
+      </Routes>
     </div>
   )
 }

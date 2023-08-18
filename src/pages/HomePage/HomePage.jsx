@@ -1,6 +1,6 @@
 import React from 'react'
 import NavigationComponent from '../../components/HomePageComponents/navigation'
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <>
         <NavigationComponent />
@@ -8,3 +8,5 @@ export const HomePage = () => {
     </>
   )
 }
+
+export default HomePage

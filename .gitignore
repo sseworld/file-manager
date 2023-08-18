@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 public
+src/redux/action
+src/redux/actionCreators
 
 # Editor directories and files
 .vscode/*
