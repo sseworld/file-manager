@@ -1,10 +1,24 @@
 import React, { useState } from "react";
+import { signInUser } from "../../redux/actionCreators/authActionCreators";
+import { useDispatch } from "react-redux";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(!email || !password){
+      alert("Please fill in all fields")
+      return;
+    }
+    dispatch(signInUser(email, password));
+  }
+
   return (
-    <form autoComplete="off">
+    <form autoComplete="off" onSubmit={handleSubmit}>
       <div className="form-group my-2">
         <input
           type="text"
