@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { signInUser } from "../../redux/actionCreators/authActionCreators";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,8 +17,14 @@ const LoginForm = () => {
       alert("Please fill in all fields")
       return;
     }
-    dispatch(signInUser(email, password));
+    dispatch(signInUser(email, password, setSuccess));
   }
+
+  useEffect(() => {
+    if(success) {
+      navigate("/dashboard")
+    }
+  }, [success])
 
   return (
     <form autoComplete="off" onSubmit={handleSubmit}>

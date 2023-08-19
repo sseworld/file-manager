@@ -1,12 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUpUser } from "../../redux/actionCreators/authActionCreators";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !email || !password || !confirmPassword) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Password Doesn't Match");
+      return;
+    }
+
+    dispatch(signUpUser(name, email, password, setSuccess));
+  };
+
+  useEffect(() => {
+    if(success) {
+      navigate("/dashboard")
+    }
+  }, [success])
+
   return (
-    <form autoComplete="off">
+    <form autoComplete="off" onSubmit={handleSubmit}>
       <div className="form-group my-2">
         <input
           type="text"
@@ -16,6 +45,8 @@ const RegisterForm = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+      </div>
+      <div className="form-group my-2">
         <input
           type="email"
           name="email"
@@ -41,7 +72,7 @@ const RegisterForm = () => {
           name="passwordConfirmation"
           placeholder="Re-type Password"
           className="form-control"
-          value={password}
+          value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </div>
