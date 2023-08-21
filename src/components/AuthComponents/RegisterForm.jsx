@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../../redux/actionCreators/authActionCreators";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [success, setSuccess] = useState(false);
+  const isLoggedIn = useSelector(state => state.auth.isAuthenticated);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,6 +28,12 @@ const RegisterForm = () => {
 
     dispatch(signUpUser(name, email, password, setSuccess));
   };
+
+  useEffect(() => {
+    if(isLoggedIn){
+      navigate("/")
+    }
+  }, [])
 
   useEffect(() => {
     if(success) {
