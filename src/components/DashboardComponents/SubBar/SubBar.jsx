@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt, faFileUpload, faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 
-const SubBar = () => {
+const SubBar = ({ setIsCreateFolderModelOpen }) => {
   return (
     <nav className="navbar navbar-expand-lg mt-2 navbar-light bg-white py-2 px-5">
       {/* <nav className="ms-5" aria-label="breadcrumb">
@@ -13,7 +13,7 @@ const SubBar = () => {
       <p>Root</p>
       <ul className="navbar-nav ms-auto">
         <li className="nav-item">
-          <button className="btn btn-outline-dark mx-2">
+          <button className="btn btn-outline-dark mx-2 me-2">
             <FontAwesomeIcon icon={faFileUpload} /> &nbsp; Upload Files
           </button>
         </li>
@@ -23,7 +23,7 @@ const SubBar = () => {
           </button>
         </li>
         <li className="nav-item">
-          <button className="btn btn-outline-dark mx-2">
+          <button className="btn btn-outline-dark ms-2" onClick={() => setIsCreateFolderModelOpen(true)}>
             <FontAwesomeIcon icon={faFolderPlus} /> &nbsp; Create Folder
           </button>
         </li>
