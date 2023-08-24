@@ -41,7 +41,6 @@ const CreateFolder = ({ setIsCreateFolderModelOpen }) => {
             updatedAt: new Date(),
           }
           dispatch(createFolder(data))
-          // alert("File Created " + folderName);
         } else {
           alert("Folder already present");
         }
