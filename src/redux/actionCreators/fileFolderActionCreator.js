@@ -26,7 +26,7 @@ export const createFolder = (data) => (dispatch) => {
     .then(async (folder) => {
       const folderData = await (await folder.get()).data();
       const folderId = folder.id;
-      dispatch(addFolder(folderData));
+      dispatch(addFolder({ data: folderData, docId: folderId }));
       alert("Folder Created Successfully");
     });
 };
