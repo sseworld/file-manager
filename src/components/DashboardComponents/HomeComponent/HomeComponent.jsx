@@ -9,7 +9,7 @@ const HomeComponent = () => {
   const { isLoading, userFolder } = useSelector(
     (state) => ({
       isLoading: state.filefolders.isLoading,
-      userFolder: state.filefolders.userFolders,
+      userFolder: state.filefolders.userFolders.filter(folder => folder.data.parent === "root"),
     }),
     shallowEqual
   );
@@ -20,7 +20,11 @@ const HomeComponent = () => {
         <h1 className="display-1 my-5 text-center">Loading...</h1>
       ) : (
         <>
-          <ShowItems title={"Created Folder"} type={"folder"} items={userFolder} />
+          <ShowItems
+            title={"Created Folder"}
+            type={"folder"}
+            items={userFolder}
+          />
           <ShowItems title={"Created Files"} type={"file"} items={files} />
         </>
       )}

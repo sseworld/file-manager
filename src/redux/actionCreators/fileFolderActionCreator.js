@@ -17,6 +17,11 @@ const setLoading = (payload) => ({
   payload,
 });
 
+const setChangedFolder = (payload) => ({
+  type: types.CHANGE_FOLDER,
+  payload,
+})
+
 // Action Creators
 export const createFolder = (data) => (dispatch) => {
   fire
@@ -47,3 +52,7 @@ export const getFolders = (userId) => (dispatch) => {
       dispatch(addFolders(foldersData));
     });
 };
+
+export const changeFolder = (folderId) => (dispatch) => {
+  dispatch(setChangedFolder(folderId))
+}
