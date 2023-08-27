@@ -5,11 +5,13 @@ import Navbar from "../../components/DashboardComponents/Navbar/Navbar";
 import SubBar from "../../components/DashboardComponents/SubBar/SubBar";
 import HomeComponent from "../../components/DashboardComponents/HomeComponent/HomeComponent";
 import CreateFolder from "../../components/DashboardComponents/CreateFolder/CreateFolder";
-import { getFolders } from "../../redux/actionCreators/fileFolderActionCreator";
+import { getFiles, getFolders } from "../../redux/actionCreators/fileFolderActionCreator";
 import FolderComponents from "../../components/DashboardComponents/FolderComponents/FolderComponents";
+import CreateFile from "../../components/DashboardComponents/CreateFile/CreateFile";
 
 const DashboardPage = () => {
   const [isCreateFolderModelOpen, setIsCreateFolderModelOpen] = useState(false);
+  const [isCreateFileModelOpen, setIsCreateFileModelOpen] = useState(false);
   const { isLoggedIn, isLoading, userId } = useSelector(
     (state) => ({
       isLoggedIn: state.auth.isAuthenticated,
@@ -30,6 +32,7 @@ const DashboardPage = () => {
   useEffect(() => {
     if(isLoading && userId){
       dispatch(getFolders(userId));
+      dispatch(getFiles(userId));
     }
   }, [isLoading, userId, dispatch]);
 
@@ -38,8 +41,11 @@ const DashboardPage = () => {
       {isCreateFolderModelOpen && (
         <CreateFolder setIsCreateFolderModelOpen={setIsCreateFolderModelOpen} />
       )}
+      {isCreateFileModelOpen && (
+        <CreateFile setIsCreateFileModelOpen={setIsCreateFileModelOpen} />
+      )}
       <Navbar />
-      <SubBar setIsCreateFolderModelOpen={setIsCreateFolderModelOpen} />
+      <SubBar setIsCreateFolderModelOpen={setIsCreateFolderModelOpen} setIsCreateFileModelOpen={setIsCreateFileModelOpen} />
       <Routes>
         <Route path="/" element={<HomeComponent />} />
         <Route path="folder/:folderId" element={<FolderComponents />} />

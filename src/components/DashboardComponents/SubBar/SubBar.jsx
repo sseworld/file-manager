@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { changeFolder } from "../../../redux/actionCreators/fileFolderActionCreator";
 
-const SubBar = ({ setIsCreateFolderModelOpen }) => {
+const SubBar = ({ setIsCreateFolderModelOpen, setIsCreateFileModelOpen }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -25,9 +25,9 @@ const SubBar = ({ setIsCreateFolderModelOpen }) => {
   );
 
   const handleNavigate = (link, id) => {
-    navigate(link)
-    dispatch(changeFolder(id))
-  }
+    navigate(link);
+    dispatch(changeFolder(id));
+  };
 
   return (
     <nav className="navbar navbar-expand-lg mt-2 navbar-light bg-white py-2 px-5">
@@ -76,7 +76,10 @@ const SubBar = ({ setIsCreateFolderModelOpen }) => {
           </button>
         </li>
         <li className="nav-item">
-          <button className="btn btn-outline-dark mx-2">
+          <button
+            className="btn btn-outline-dark mx-2"
+            onClick={() => setIsCreateFileModelOpen(true)}
+          >
             <FontAwesomeIcon icon={faFileAlt} /> &nbsp; Create Files
           </button>
         </li>
