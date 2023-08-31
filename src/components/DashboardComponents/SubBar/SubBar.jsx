@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFileAlt,
@@ -10,6 +10,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { changeFolder } from "../../../redux/actionCreators/fileFolderActionCreator";
 
 const SubBar = ({ setIsCreateFolderModelOpen, setIsCreateFileModelOpen }) => {
+  const mobileView = window.innerWidth < 768;
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -23,6 +25,17 @@ const SubBar = ({ setIsCreateFolderModelOpen, setIsCreateFileModelOpen }) => {
     }),
     shallowEqual
   );
+
+  const handleResize = () => {
+    setShow(window.innerWidth < 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleNavigate = (link, id) => {
     navigate(link);
@@ -72,7 +85,8 @@ const SubBar = ({ setIsCreateFolderModelOpen, setIsCreateFileModelOpen }) => {
       <ul className="navbar-nav ms-auto">
         <li className="nav-item">
           <button className="btn btn-outline-dark mx-2 me-2">
-            <FontAwesomeIcon icon={faFileUpload} /> &nbsp; Upload Files
+            <FontAwesomeIcon icon={faFileUpload} />{" "}
+            {!show && <>&nbsp;Upload Files</>}
           </button>
         </li>
         <li className="nav-item">
@@ -80,7 +94,8 @@ const SubBar = ({ setIsCreateFolderModelOpen, setIsCreateFileModelOpen }) => {
             className="btn btn-outline-dark mx-2"
             onClick={() => setIsCreateFileModelOpen(true)}
           >
-            <FontAwesomeIcon icon={faFileAlt} /> &nbsp; Create Files
+            <FontAwesomeIcon icon={faFileAlt} />{" "}
+            {!show ? <>&nbsp;Create Files</> : ""}
           </button>
         </li>
         <li className="nav-item">
@@ -88,7 +103,8 @@ const SubBar = ({ setIsCreateFolderModelOpen, setIsCreateFileModelOpen }) => {
             className="btn btn-outline-dark ms-2"
             onClick={() => setIsCreateFolderModelOpen(true)}
           >
-            <FontAwesomeIcon icon={faFolderPlus} /> &nbsp; Create Folder
+            <FontAwesomeIcon icon={faFolderPlus} />{" "}
+            {!show ? <>&nbsp;Create Folder</> : ""}
           </button>
         </li>
       </ul>
