@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { duotoneDark, duotoneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import {
+  duotoneDark,
+  duotoneLight,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
+import "./CodeEditor.css";
 
 const CodeEditor = ({ fileName, data, setData }) => {
-  // const [data, setData] = useState(`\n`);
   const [theme, setTheme] = useState(duotoneDark);
   const codes = {
     html: "xml",
@@ -20,10 +23,6 @@ const CodeEditor = ({ fileName, data, setData }) => {
     py: "python",
     json: "javascript",
   };
-
-  // const dark = () => {
-  //   setTheme()
-  // }
 
   const handleKeyDown = (evt) => {
     let value = content,
@@ -50,7 +49,7 @@ const CodeEditor = ({ fileName, data, setData }) => {
         <textarea
           className="code-input w-100"
           value={data}
-          onKeyDown={handleKeyDown}
+          // onKeyDown={handleKeyDown}
           onChange={(e) => setData(e.target.value)}
         />
         <pre className="code-output">

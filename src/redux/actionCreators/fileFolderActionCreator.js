@@ -105,3 +105,18 @@ export const createFiles = (data, setSuccess) => (dispatch) => {
       setSuccess(false);
     });
 };
+
+export const updateFileData = (fileId, data) => (dispatch) => {
+  fire
+    .firestore()
+    .collection("files")
+    .doc(fileId)
+    .update({ data })
+    .then(() => {
+      dispatch(setFileData({ fileId, data }));
+      alert("File saved successfully!");
+    })
+    .catch(() => {
+      alert("Something went wrong!");
+    });
+};

@@ -7,6 +7,7 @@ import CodeEditor from "./CodeEditor";
 const FileComponent = () => {
   const { fileId } = useParams();
   const [fileData, setFileData] = useState("");
+  const [prevFileData, setPrevFileData] = useState("")
 
   const { currentFile } = useSelector((state) => ({
     currentFile: state.filefolders.userFiles.find((file) => file.docId === fileId)
@@ -15,12 +16,13 @@ const FileComponent = () => {
   useEffect(() => {
     if(currentFile){
       setFileData(currentFile.data.data)
+      setPrevFileData(currentFile.data.data)
     }
-  }, [currentFile])
+  }, [currentFile, currentFile.data.data])
 
   return (
     <div>
-      <Header fileName={currentFile.data.name} fileData={fileData} prevFileData={currentFile.data.data} />
+      <Header fileId={fileId} fileName={currentFile.data.name} fileData={fileData} prevFileData={prevFileData} />
       <CodeEditor fileName={currentFile.data.name} data={fileData} setData={setFileData} /> 
     </div>
   );
