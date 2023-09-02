@@ -33,6 +33,11 @@ const addFile = (payload) => ({
   payload,
 });
 
+const setFileData = (payload) => ({
+  type: types.SET_FILE_DATA,
+  payload,
+});
+
 // Action Creators
 export const createFolder = (data) => (dispatch) => {
   fire

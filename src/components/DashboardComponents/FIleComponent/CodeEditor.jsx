@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { duotoneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { duotoneDark, duotoneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-const CodeEditor = ({ fileName }) => {
-  const [data, setData] = useState(`\n`);
+const CodeEditor = ({ fileName, data, setData }) => {
+  // const [data, setData] = useState(`\n`);
+  const [theme, setTheme] = useState(duotoneDark);
   const codes = {
     html: "xml",
     php: "php",
@@ -19,6 +20,10 @@ const CodeEditor = ({ fileName }) => {
     py: "python",
     json: "javascript",
   };
+
+  // const dark = () => {
+  //   setTheme()
+  // }
 
   const handleKeyDown = (evt) => {
     let value = content,
@@ -52,7 +57,7 @@ const CodeEditor = ({ fileName }) => {
           <SyntaxHighlighter
             language={codes[fileName.split(".")[1]]}
             showLineNumbers
-            style={duotoneLight}
+            style={theme}
             wrapLines
             startingLineNumber={1}
           >
