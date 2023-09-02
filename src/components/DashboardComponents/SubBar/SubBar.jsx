@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { changeFolder } from "../../../redux/actionCreators/fileFolderActionCreator";
 
-const SubBar = ({ setIsCreateFolderModelOpen, setIsCreateFileModelOpen }) => {
+const SubBar = ({ setIsCreateFolderModelOpen, setIsCreateFileModelOpen, setIsUploadFileModelOpen }) => {
   const mobileView = window.innerWidth < 768;
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -82,9 +82,9 @@ const SubBar = ({ setIsCreateFolderModelOpen, setIsCreateFileModelOpen }) => {
         </ol>
       </nav>
 
-      <ul className="navbar-nav ms-auto">
+      <ul className="navbar-nav ms-auto flex-row" /* style={{ flexDirection: "row" }} */ >
         <li className="nav-item">
-          <button className="btn btn-outline-dark mx-2 me-2">
+          <button className="btn btn-outline-dark mx-2 me-2" onClick={() =>setIsUploadFileModelOpen(true)}>
             <FontAwesomeIcon icon={faFileUpload} />{" "}
             {!show && <>&nbsp;Upload Files</>}
           </button>

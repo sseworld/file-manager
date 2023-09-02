@@ -18,7 +18,7 @@ const Header = ({ fileId, fileName, fileData, prevFileData }) => {
       <ul className="navbar-nav ms-auto me-5 my-0">
         <li className="nav-item">
           <button
-            className="btn btn-success"
+            className="btn btn-success mx-2"
             disabled={fileData === prevFileData}
             onClick={() => {
               dispatch(updateFileData(fileId, fileData))

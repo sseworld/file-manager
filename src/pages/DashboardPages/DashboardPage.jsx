@@ -9,10 +9,12 @@ import { getFiles, getFolders } from "../../redux/actionCreators/fileFolderActio
 import FolderComponents from "../../components/DashboardComponents/FolderComponents/FolderComponents";
 import CreateFile from "../../components/DashboardComponents/CreateFile/CreateFile";
 import FileComponent from "../../components/DashboardComponents/FIleComponent/FileComponent";
+import UploadFIle from "../../components/DashboardComponents/UploadFIle/UploadFIle";
 
 const DashboardPage = () => {
   const [isCreateFolderModelOpen, setIsCreateFolderModelOpen] = useState(false);
   const [isCreateFileModelOpen, setIsCreateFileModelOpen] = useState(false);
+  const [isUploadFileModelOpen, setIsUploadFileModelOpen] = useState(false);
   const [showSubBar, setShowSubBar] = useState(true)
   const {pathname} = useLocation();
 
@@ -56,9 +58,12 @@ const DashboardPage = () => {
       {isCreateFileModelOpen && (
         <CreateFile setIsCreateFileModelOpen={setIsCreateFileModelOpen} />
       )}
+      {isUploadFileModelOpen && (
+        <UploadFIle setIsUploadFileModelOpen={setIsUploadFileModelOpen} />
+      )}
       <Navbar />
       {showSubBar && (
-        <SubBar setIsCreateFolderModelOpen={setIsCreateFolderModelOpen} setIsCreateFileModelOpen={setIsCreateFileModelOpen} />
+        <SubBar setIsCreateFolderModelOpen={setIsCreateFolderModelOpen} setIsUploadFileModelOpen={setIsUploadFileModelOpen} setIsCreateFileModelOpen={setIsCreateFileModelOpen} />
       )}
       <Routes>
         <Route path="/" element={<HomeComponent />} />
