@@ -40,6 +40,13 @@ const FolderComponents = () => {
               items={createdFiles}
             />
           )}
+          {childFiles.length !== 0 && (
+            <ShowItems
+              title={"Uploaded Folder"}
+              type={"file"}
+              items={uploadedFiles}
+            />
+          )}
         </>
       ) : (
         <p className="text-center my-5">Empty Folder</p>

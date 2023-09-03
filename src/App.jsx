@@ -2,11 +2,17 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 
 import { Login, Register, HomePage, DashboardPage } from "./pages"
-import { useDispatch } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import React, { useEffect } from 'react';
 import { checkIsLoggedIn } from './redux/actionCreators/authActionCreators';
 
 function App() {
+  const { isLoggedIn } = useSelector(
+    (state) => ({
+      isLoggedIn: state.auth.isAuthenticated,
+    }),
+    shallowEqual
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(checkIsLoggedIn())
@@ -17,7 +23,7 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/dashboard/*' element={<DashboardPage />} />
+        <Route path='/dashboard/*' element={isLoggedIn ? (<DashboardPage />) : (<Login />)} />
         {/* <Route path='*' element={< />} />  */}
       </Routes>
     </div>

@@ -21,12 +21,12 @@ const ShowItems = ({ title, items, type }) => {
   return (
     <div className="w-100">
       <h4 className="text-center border-bottom">{title}</h4>
-      <div className="row gap-2 p-4 flex-wrap">
+      <div className="row gap-3 p-4 flex-wrap">
         {items.map((item, index) => {
           return (
             <p
               key={index * 55}
-              className="col-md-2 py-3 text-center d-flex flex-column border"
+              className="col-md-2 col-sm-3 col-4 py-3 text-center d-flex flex-column border"
               onDoubleClick={() => handleDoubleClick(item.docId)}
             >
               {type === "folder" ? (

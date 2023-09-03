@@ -5,7 +5,10 @@ import Navbar from "../../components/DashboardComponents/Navbar/Navbar";
 import SubBar from "../../components/DashboardComponents/SubBar/SubBar";
 import HomeComponent from "../../components/DashboardComponents/HomeComponent/HomeComponent";
 import CreateFolder from "../../components/DashboardComponents/CreateFolder/CreateFolder";
-import { getFiles, getFolders } from "../../redux/actionCreators/fileFolderActionCreator";
+import {
+  getFiles,
+  getFolders,
+} from "../../redux/actionCreators/fileFolderActionCreator";
 import FolderComponents from "../../components/DashboardComponents/FolderComponents/FolderComponents";
 import CreateFile from "../../components/DashboardComponents/CreateFile/CreateFile";
 import FileComponent from "../../components/DashboardComponents/FIleComponent/FileComponent";
@@ -15,8 +18,8 @@ const DashboardPage = () => {
   const [isCreateFolderModelOpen, setIsCreateFolderModelOpen] = useState(false);
   const [isCreateFileModelOpen, setIsCreateFileModelOpen] = useState(false);
   const [isUploadFileModelOpen, setIsUploadFileModelOpen] = useState(false);
-  const [showSubBar, setShowSubBar] = useState(true)
-  const {pathname} = useLocation();
+  const [showSubBar, setShowSubBar] = useState(true);
+  const { pathname } = useLocation();
 
   const { isLoggedIn, isLoading, userId } = useSelector(
     (state) => ({
@@ -29,26 +32,26 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     navigate("/");
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if(isLoading && userId){
+    if (isLoading && userId) {
       dispatch(getFolders(userId));
       dispatch(getFiles(userId));
     }
   }, [isLoading, userId, dispatch]);
 
   useEffect(() => {
-    if(pathname.includes("/file/")){
-      setShowSubBar(false)
+    if (pathname.includes("/file/")) {
+      setShowSubBar(false);
     } else {
-      setShowSubBar(true)
+      setShowSubBar(true);
     }
-  }, [pathname])
+  }, [pathname]);
 
   return (
     <>
@@ -63,7 +66,11 @@ const DashboardPage = () => {
       )}
       <Navbar />
       {showSubBar && (
-        <SubBar setIsCreateFolderModelOpen={setIsCreateFolderModelOpen} setIsUploadFileModelOpen={setIsUploadFileModelOpen} setIsCreateFileModelOpen={setIsCreateFileModelOpen} />
+        <SubBar
+          setIsCreateFolderModelOpen={setIsCreateFolderModelOpen}
+          setIsUploadFileModelOpen={setIsUploadFileModelOpen}
+          setIsCreateFileModelOpen={setIsCreateFileModelOpen}
+        />
       )}
       <Routes>
         <Route path="/" element={<HomeComponent />} />

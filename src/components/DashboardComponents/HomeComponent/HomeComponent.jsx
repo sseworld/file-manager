@@ -20,7 +20,7 @@ const HomeComponent = () => {
   const uploadedFiles = userFiles && userFiles.filter((file) => file.data.data === null );
 
   return (
-    <div className="col-md-12 w-100">
+    <div className="col-md-12 w-100" >
       {isLoading ? (
         <h1 className="display-1 my-5 text-center">Loading...</h1>
       ) : (
@@ -34,6 +34,11 @@ const HomeComponent = () => {
             title={"Created Files"}
             type={"file"}
             items={createdFiles}
+          />
+          <ShowItems
+            title={"Uploaded Files"}
+            type={"file"}
+            items={uploadedFiles}
           />
         </>
       )}

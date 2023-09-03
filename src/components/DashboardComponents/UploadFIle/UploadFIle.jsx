@@ -2,10 +2,10 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-// import { createFiles } from "../../../redux/actionCreators/fileFolderActionCreator";
+import { uploadFile } from "../../../redux/actionCreators/fileFolderActionCreator";
 
 const UploadFIle = ({ setIsUploadFileModelOpen }) => {
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
 
   const { userFiles, user, currentFolder, currentFolderData } = useSelector(
@@ -30,12 +30,9 @@ const UploadFIle = ({ setIsUploadFileModelOpen }) => {
   });
 
   const filePresent = (name, extension) => {
-    if(!extension){
-      name = name + ".txt"
-    }
     const filePresent = userFiles
       .filter((file) => file.data.parent === currentFolder)
-      .find((fldr) => fldr.data.name === name );
+      .find((fldr) => fldr.data.name === name);
     if (filePresent) {
       return true;
     } else {
@@ -45,39 +42,31 @@ const UploadFIle = ({ setIsUploadFileModelOpen }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (fileName) {
-    //   if (fileName.length) {
-    //     // check file extension
-    //     let extension = false;
-    //     if (fileName.split(".").length > 1) {
-    //       extension = true;
-    //     }
-
-    //     if (!filePresent(fileName)) {
-    //       const data = {
-    //         createdAt: new Date(),
-    //         name: extension ? fileName : `${fileName}.txt`,
-    //         userId: user.uid,
-    //         createdBy: user.displayName,
-    //         path:
-    //           currentFolder === "root"
-    //             ? []
-    //             : [...currentFolderData?.data.path, currentFolder],
-    //         parent: currentFolder,
-    //         lastAccessed: null,
-    //         updatedAt: new Date(),
-    //         extension: extension ? fileName.split(".")[1] : "txt",
-    //         data: "",
-    //         url: null,
-    //       };
-    //       dispatch(createFiles(data, setSuccess));
-    //     } else {
-    //       alert("File already present");
-    //     }
-    //   }
-    // } else {
-    //   alert("File name can not be Empty");
-    // }
+    if (file) {
+      if (!filePresent(file)) {
+        const data = {
+          createdAt: new Date(),
+          name: file.name,
+          userId: user.uid,
+          createdBy: user.displayName,
+          path:
+            currentFolder === "root"
+              ? []
+              : [...currentFolderData?.data.path, currentFolder],
+          parent: currentFolder,
+          lastAccessed: null,
+          updatedAt: new Date(),
+          extension: file.name.split(".")[1],
+          data: null,
+          url: "",
+        };
+        dispatch(uploadFile(file, data, setSuccess));
+      } else {
+        alert("File already present");
+      }
+    } else {
+      alert("File name can not be Empty");
+    }
   };
 
   return (
@@ -108,7 +97,6 @@ const UploadFIle = ({ setIsUploadFileModelOpen }) => {
                   type="file"
                   className="form-control"
                   id="file"
-                  placeholder="File Name e.g. file.txt, index.html, index.php, index.jsx, index.ts"
                   onChange={(e) => setFile(e.target.files[0])}
                 />
               </div>
