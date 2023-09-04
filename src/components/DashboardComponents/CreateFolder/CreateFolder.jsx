@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { createFolder } from "../../../redux/actionCreators/fileFolderActionCreator";
+import { toast } from "react-toastify";
 
 const CreateFolder = ({ setIsCreateFolderModelOpen }) => {
   const [folderName, setFolderName] = useState("");
@@ -52,11 +53,11 @@ const CreateFolder = ({ setIsCreateFolderModelOpen }) => {
           };
           dispatch(createFolder(data));
         } else {
-          alert("Folder already present");
+          toast.info("Folder already present");
         }
       }
     } else {
-      alert("Folder name can not be Empty");
+      toast.info("Folder name can not be Empty");
     }
   };
 

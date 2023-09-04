@@ -33,14 +33,14 @@ const FolderComponents = () => {
               items={childFolders}
             />
           )}
-          {childFiles.length > 0 && (
+          {createdFiles.length > 0 && (
             <ShowItems
-              title={"Created Folder"}
+              title={"Created Files"}
               type={"file"}
               items={createdFiles}
             />
           )}
-          {childFiles.length !== 0 && (
+          {uploadedFiles.length !== 0 && (
             <ShowItems
               title={"Uploaded Folder"}
               type={"file"}

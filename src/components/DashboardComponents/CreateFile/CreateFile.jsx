@@ -72,11 +72,11 @@ const CreateFile = ({ setIsCreateFileModelOpen }) => {
           };
           dispatch(createFiles(data, setSuccess));
         } else {
-          alert("File already present");
+          toast.info("File already present");
         }
       }
     } else {
-      alert("File name can not be Empty");
+      toast.info("File name can not be Empty");
     }
   };
 

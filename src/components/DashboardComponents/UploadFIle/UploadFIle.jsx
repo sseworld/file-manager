@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { uploadFile } from "../../../redux/actionCreators/fileFolderActionCreator";
+import { toast } from "react-toastify";
 
 const UploadFIle = ({ setIsUploadFileModelOpen }) => {
   const [file, setFile] = useState(null);
@@ -29,7 +30,7 @@ const UploadFIle = ({ setIsUploadFileModelOpen }) => {
     }
   });
 
-  const filePresent = (name, extension) => {
+  const filePresent = (name) => {
     const filePresent = userFiles
       .filter((file) => file.data.parent === currentFolder)
       .find((fldr) => fldr.data.name === name);
@@ -43,7 +44,7 @@ const UploadFIle = ({ setIsUploadFileModelOpen }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (file) {
-      if (!filePresent(file)) {
+      if (!filePresent(file.name)) {
         const data = {
           createdAt: new Date(),
           name: file.name,
@@ -62,10 +63,10 @@ const UploadFIle = ({ setIsUploadFileModelOpen }) => {
         };
         dispatch(uploadFile(file, data, setSuccess));
       } else {
-        alert("File already present");
+        toast.info("File already present");
       }
     } else {
-      alert("File name can not be Empty");
+      toast.info("File name can not be Empty");
     }
   };
 

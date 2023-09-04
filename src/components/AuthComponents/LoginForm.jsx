@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { signInUser } from "../../redux/actionCreators/authActionCreators";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(!email || !password){
-      alert("Please fill in all fields")
+      toast.error("Please fill in all fields")
       return;
     }
     dispatch(signInUser(email, password, setSuccess));
