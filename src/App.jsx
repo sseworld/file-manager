@@ -7,6 +7,7 @@ import "./App.css";
 
 import { Login, Register, HomePage, DashboardPage } from "./pages";
 import { checkIsLoggedIn } from "./redux/actionCreators/authActionCreators";
+import CodeEditor from "./pages/CodeEditor/CodeEditor";
 
 function App() {
   const { isLoggedIn } = useSelector(
@@ -30,7 +31,7 @@ function App() {
           path="/dashboard/*"
           element={isLoggedIn ? <DashboardPage /> : <Login />}
         />
-        {/* <Route path='*' element={< />} />  */}
+        <Route path='/code' element={<CodeEditor />} /> 
       </Routes>
       <ToastContainer />
     </div>

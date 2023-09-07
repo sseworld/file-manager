@@ -90,6 +90,22 @@ export const getFiles = (userId) => (dispatch) => {
     });
 };
 
+export const getFilesFile = (userId, fileId) => (dispatch) => {
+  fire
+    .firestore()
+    .collection("files")
+    .where("userId", "==", userId)
+    .doc(fileId)
+    .get()
+    .then(async (files) => {
+      const filesData = await files.docs.map((file) => ({
+        data: file.data(),
+        docId: file.id,
+      }));
+      dispatch(addFiles(filesData));
+    });
+};
+
 export const createFiles = (data, setSuccess) => (dispatch) => {
   fire
     .firestore()

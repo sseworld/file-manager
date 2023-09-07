@@ -1,24 +1,36 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { useNavigate, useParams } from "react-router-dom";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import CodeEditor from "./CodeEditor";
+import { getFilesFile } from "../../../redux/actionCreators/fileFolderActionCreator";
 
 const FileComponent = () => {
   const { fileId } = useParams();
   const [fileData, setFileData] = useState("");
   const [prevFileData, setPrevFileData] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { currentFile, isAuthenticated } = useSelector(
+  // const currentFile = useSelector((state) => ({
+  //   currentFile: state.filefolders.userFiles,
+  // }), shallowEqual);
+
+  // if(currentFile.length === null) {
+  //   // dispatch(get)
+  // }
+
+  const { currentFile, isAuthenticated, userId } = useSelector(
     (state) => ({
       currentFile: state.filefolders.userFiles.find(
         (file) => file.docId === fileId
       ),
       isAuthenticated: state.auth.isAuthenticated,
+      userId: state.auth.user.uid,
     }),
     shallowEqual
   );
+
 
   const downloadFile = () => {
     const element = document.createElement("a");
@@ -32,12 +44,13 @@ const FileComponent = () => {
 
     document.body.removeChild(element);
   };
-
+  
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
     }
   }, []);
+
   useEffect(() => {
     if (currentFile) {
       setFileData(currentFile?.data?.data);
@@ -47,7 +60,7 @@ const FileComponent = () => {
 
   return (
     <div>
-      {currentFile.data.data !== null && isAuthenticated ? (
+      {isAuthenticated && currentFile.data.data !== null ? (
         <>
           <Header
             fileId={fileId}
